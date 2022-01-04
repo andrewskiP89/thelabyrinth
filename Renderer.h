@@ -12,6 +12,7 @@
 #include "Camera.h"
 #include "Shapes.h"
 
+
 enum INIT_STATUS {INITED_FALSE, INITED_TRUE};
 
 struct Window{
@@ -22,6 +23,8 @@ struct Window{
     void display();
     bool quitting() const;
     void exit() const;
+    vec2i const getCenter();
+    Camera& getCamera();
     glm::mat4 getProjection(bool ortho = false);
 };
 #endif //THELABYRINTH_RENDERER_H

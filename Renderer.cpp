@@ -54,7 +54,7 @@ int Window::init() {
     glfwWindowHint( GLFW_CONTEXT_VERSION_MINOR, 3 );
     glfwWindowHint( GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE );
 
-    m_window = glfwCreateWindow(640, 480, APP_TITLE, nullptr, nullptr);
+    m_window = glfwCreateWindow(1080, 720, APP_TITLE, nullptr, nullptr);
     glfwMakeContextCurrent(m_window);
     // Initialize GLEW
     glewExperimental = true; // Needed for core profile
@@ -84,7 +84,8 @@ int Window::init() {
     glEnable(GL_DEPTH_TEST);
     // Accept fragment if it closer to the camera than the former one
     glDepthFunc(GL_LESS);
-
+    // enabling culling
+    glEnable(GL_CULL_FACE);
     // vertex generation and binding the first one
     glGenVertexArrays(1, &vertexArrayId);
     glBindVertexArray(vertexArrayId);
@@ -150,7 +151,7 @@ void Window::display() {
     glDisableVertexAttribArray(1);
 
     glfwSwapBuffers(m_window);
-    glfwPollEvents();
+
 
 }
 
@@ -167,5 +168,16 @@ glm::mat4 Window::getProjection(bool ortho) {
         return glm::ortho(-10.0f,10.0f,-10.0f,10.0f,0.0f,100.0f);
     else
         return glm::perspective(glm::radians(45.0f), 4.0f / 3.0f, 0.1f, 100.0f);
+}
+
+vec2i const Window::getCenter() {
+    vec2i center;
+    glfwGetWindowSize(m_window,   &(center.x) , &(center.y) );
+
+    return vec2i (center.x / 2, center.y /2 );
+}
+
+Camera& Window::getCamera() {
+    return m_camera;
 }
 

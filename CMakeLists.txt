@@ -15,5 +15,5 @@ set(OpenGlLinkers -lglfw3 -lglut -lGLU -lGL) # setting all the Glut libraries as
 
 option(BUILD_SHARED_LIBS "Build shared libraries" ON)
 
-add_executable(thelabyrinth main.cpp Renderer.h Renderer.cpp App.h App.cpp Constants.h Frustum.h ShadersManager.h StandardHeaders.h ShadersManager.cpp Camera.h Camera.cpp Shapes.h Libraries.h IOManager.h)
+add_executable(thelabyrinth main.cpp Renderer.h Renderer.cpp App.h App.cpp Constants.h Frustum.h ShadersManager.h StandardHeaders.h ShadersManager.cpp Camera.h Camera.cpp Shapes.h Libraries.h IOManager.h IOManager.cpp Mesh.h)
 target_link_libraries(thelabyrinth glfw OpenGL::GL ${OPENGL_glu_LIBRARY} ${GLEW_LIBRARIES} ${GLM_LIBRARIES} ${GLFW_LIBRARIES})

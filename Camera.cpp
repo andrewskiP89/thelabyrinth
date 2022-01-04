@@ -4,7 +4,7 @@
 #include "Camera.h"
 
 glm::mat4 Camera::getView(){
-    return glm::lookAt(m_position, m_direction, m_up);
+    return glm::lookAt(m_position, m_direction + m_position, m_up);
 }
 int Camera::init() {
     return CAMERA_INITED_TRUE;
@@ -12,6 +12,7 @@ int Camera::init() {
 
 void Camera::update(float delta) {
     // do nothing, for now
+    std::cout << "Updating the camera\n";
 }
 
 
