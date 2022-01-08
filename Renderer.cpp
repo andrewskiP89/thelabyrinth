@@ -5,6 +5,7 @@
 #include <iostream>
 #include "Renderer.h"
 #include "Camera.h"
+#include "Model.h"
 #include "IOManager.h"
 
 // initing the array buffers. This will be handled by the
@@ -86,8 +87,21 @@ int Window::init() {
     glDepthFunc(GL_LESS);
     // enabling culling
     glEnable(GL_CULL_FACE);
+
+    // initing a simple model
+    // creating the shader
+    Shader *sh = new Shader();
+    sh->create();
+    sh->m_programId = programID;
+    sh->m_mvpId = mvpId;
+    Model *sampleModel = new Model();
+    sampleModel->load("");
+    sampleModel->setShader(sh);
+    sampleModel->create();
+    m_worldItems.push_back(sampleModel);
+
     // vertex generation and binding the first one
-    glGenVertexArrays(1, &vertexArrayId);
+    /*glGenVertexArrays(1, &vertexArrayId);
     glBindVertexArray(vertexArrayId);
 
     // VERTEX BUFFER
@@ -98,14 +112,25 @@ int Window::init() {
     // COLOR BUFFER
     glGenBuffers(1, &colorBuffer);
     glBindBuffer(GL_ARRAY_BUFFER, colorBuffer);
-    glBufferData(GL_ARRAY_BUFFER, sizeof(g_color_buffer_data), g_color_buffer_data, GL_STATIC_DRAW);
+    glBufferData(GL_ARRAY_BUFFER, sizeof(g_color_buffer_data), g_color_buffer_data, GL_STATIC_DRAW);*/
+
+    // initing a sample model
+
     return INITED_TRUE;
 }
 
 void Window::update(float delta) {
+    static float angle = 0;
+    angle += delta;
     glm::mat4 projection = getProjection();
     glm::mat4 model = glm::mat4(1.0f);
+    model = glm::translate(model, glm::vec3(0,0,0));
+    model = glm::rotate(model, angle, glm::vec3(0, 1, 0));
     glm::mat4 view = m_camera.getView();
+    for(auto &model : m_worldItems){
+        model->m_shader->m_view = view; // updating the view
+        model->update(delta);
+    }
     MVP = projection * view * model;
 }
 
@@ -116,7 +141,7 @@ bool Window::quitting() const{
 void Window::display() {
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-    glUseProgram(programID);
+    /*glUseProgram(programID);
     // applying mvp transformations
     glUniformMatrix4fv(mvpId, 1, GL_FALSE, &MVP[0][0]);
 
@@ -148,9 +173,14 @@ void Window::display() {
                  sizeof(g_vertex_buffer_data) / sizeof(*g_vertex_buffer_data) / 3);
 
     glDisableVertexAttribArray(0);
-    glDisableVertexAttribArray(1);
+    glDisableVertexAttribArray(1);*/
+    for(auto item : m_worldItems){
+        item->display();
+    }
 
     glfwSwapBuffers(m_window);
+
+
 
 
 }

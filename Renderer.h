@@ -11,11 +11,13 @@
 #include "ShadersManager.h"
 #include "Camera.h"
 #include "Shapes.h"
+#include "Model.h"
 
 
 enum INIT_STATUS {INITED_FALSE, INITED_TRUE};
 
 struct Window{
+    std::vector<Model*> m_worldItems;
     Camera m_camera;
     GLFWwindow* m_window;
     int init();

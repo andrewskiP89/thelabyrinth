@@ -5,6 +5,8 @@
 #ifndef THELABYRINTH_STANDARDHEADERS_H
 #define THELABYRINTH_STANDARDHEADERS_H
 #include <iostream>
+#include <stdio.h>
+#include <string.h>
 #include <vector>
 #include <fstream>
 #include <sstream>
