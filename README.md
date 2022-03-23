@@ -1,5 +1,3 @@
-# thelabyrinth
-
 This code was written for personal usage to practice with the OpenGL libray. The progam allows to move the camera between some walls, which are illuminated by a rotating light. As a lightning model, a simple phong model has been implemented.
 
 TODO list includes:
