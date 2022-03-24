@@ -2,8 +2,8 @@ This code was written for personal usage to practice with the OpenGL libray. The
 
 TODO list includes:
 
-- Adding a logic to generate random terrains.
-- Using a skybox to encompass the scene.
 - Avoiding draw the same vertex multiple times.
+- Adding a logic to generate random terrains and frustum culling logic.
+- Using a skybox to encompass the scene.
 - Add gravity to che camera
 - Manage collisions
